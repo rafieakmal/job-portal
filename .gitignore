@@ -1,0 +1,9 @@
+/node_modules
+/vendor
+.env
+/resources/js/backend/ktp/node_modules
+/resources/js/backend/ktp/.env
+/resources/js/backend/wa/node_modules
+/resources/js/backend/wa/.env
+/resources/js/backend/sms/node_modules
+/resources/js/backend/sms/.env
