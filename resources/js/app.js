@@ -13,20 +13,22 @@ import VueClipboard from 'vue-clipboard2'
 import VueSplit from 'vue-split-panel'
 import VueCookies from 'vue-cookies'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import VueSweetalert2 from 'vue-sweetalert2';
+import VueSweetalert2 from 'vue-sweetalert2'
 import * as Sentry from "@sentry/vue"
 import VueI18n from 'vue-i18n'
 import verifyUser from './src/verifyUser'
 import VModal from 'vue-js-modal'
 import vSelect from 'vue-select'
 import VueSanitize from "vue-sanitize"
+import { VueTypedJs } from 'vue-typed-js'
 
-import 'sweetalert2/dist/sweetalert2.min.css';
+import 'sweetalert2/dist/sweetalert2.min.css'
 import 'vue-js-modal/dist/styles.css'
-import 'vue-select/dist/vue-select.css';
+import 'vue-select/dist/vue-select.css'
 // import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+Vue.component('vue-typed-js', VueTypedJs)
 Vue.use(VueMeta)
 Vue.use(VueRouter)
 Vue.component('v-select', vSelect)

@@ -6,7 +6,9 @@
                     <img class="img-fluid w-100" src="assets/img/illustrations/7070629_3293466.svg">
                 </div>
                 <div class="col text-start text-md-start">
-                    <h2 class="display-6 fw-semibold mb-5"><span class="underline pb-1">Sign up</span></h2>
+                    <vue-typed-js :typeSpeed="50" :showCursor="false" :autoInsertCss="true" :contentType="'html'" :backSpeed="2" :strings="['<span>Sign up</span>']">
+                        <h2 class="typing display-6 fw-semibold mb-5 underline pb-1"></h2>
+                    </vue-typed-js>
                     <form @submit.prevent="registration" data-bs-theme="light">
                         <div class="mb-3">
                             <input v-model="user.full_name" class="form-control" type="text" name="full_name" placeholder="Full Name">
@@ -70,55 +72,6 @@
             </div>
         </div>
     </section>
-    <!-- <section class="py-4 py-md-5 my-5">
-        <div class="container py-md-5">
-            <div class="row">
-                <div class="col-md-6 text-center"><img class="img-fluid w-100" src="assets/img/illustrations/register.svg"></div>
-                <div class="col-md-5 col-xl-4 text-center text-md-start">
-                    <h2 class="display-6 fw-bold mb-5"><span class="underline pb-1">Sign up</span></h2>
-                    <form @submit.prevent="registration">
-                        <div class="mb-3">
-                            <input v-model="user.username" class="shadow-sm form-control" type="text" name="username" placeholder="Username" required>
-                        </div>
-                        <div class="mb-3">
-                            <input v-model="user.email" class="shadow-sm form-control" type="email" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <input v-model="user.password" v-show="!showPassword" @input="validatePassword" class="shadow-sm form-control" type="password" name="password" placeholder="Password" minlength="8" required>
-                            <input v-model="user.password" v-show="showPassword" @input="validatePassword" class="shadow-sm form-control" type="text" name="password" placeholder="Password" minlength="8" required>
-                        </div>
-                        <div class="mb-3">
-                            <input v-model="user.password_confirmation" v-show="!showPassword" @input="validatePassword" class="shadow-sm form-control" type="password" name="password_repeat" placeholder="Repeat Password" minlength="8" required>
-                            <input v-model="user.password_confirmation" v-show="showPassword" @input="validatePassword" class="shadow-sm form-control" type="text" name="password_repeat" placeholder="Repeat Password" minlength="8" required>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input v-model="showPassword" class="form-check-input" type="checkbox" value="true" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Show Password
-                                </label>
-                            </div>
-                        </div>
-                        <div v-if="errorMessage">
-                            <p style="color: red;">{{ errorMessage }}</p>
-                        </div>
-                        <div class="mb-5">
-                            <button v-show="validated" class="btn btn-primary shadow" type="submit">Create account</button>
-                            <button v-show="!validated" class="btn btn-primary shadow disabled" type="submit">Create account</button>
-                        </div>
-                        <p class="text-muted">Have an account? 
-                            <a href="/login">Log in&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-arrow-narrow-right">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <line x1="15" y1="16" x2="19" y2="12"></line>
-                            <line x1="15" y1="8" x2="19" y2="12"></line>
-                            </svg>
-                        </a>&nbsp;</p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section> -->
 </template>
 
 <style scoped>
@@ -176,17 +129,13 @@ input[type='number'] {
 
 </style>
 <script>
-    import vue2Dropzone from 'vue2-dropzone'
-    import verifyUser from '../../verifyUser'
-    import 'vue2-dropzone/dist/vue2Dropzone.min.css'
-    import { VueRecaptcha } from 'vue-recaptcha';
+    import { VueRecaptcha } from 'vue-recaptcha'
     export default {
         name: "sign-up",
         metaInfo: {
             title: "MRI Job Portal - Registration",
         },
         components: {
-            vueDropzone: vue2Dropzone,
             VueRecaptcha
         },
         data() {

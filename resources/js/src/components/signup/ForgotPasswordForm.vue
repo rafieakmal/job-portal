@@ -6,7 +6,7 @@
                     <img class="img-fluid w-100" src="assets/img/illustrations/20824344_6343823.svg">
                 </div>
                 <div class="col text-start text-md-start">
-                    <h2 class="display-6 fw-bold mb-5">Change <span class="underline pb-1">Password</span></h2>
+                    <h2 class="display-6 fw-bold mb-5">Reset <span class="underline pb-1">Password</span></h2>
                     <form @submit.prevent="requestResetPassword">
                         <div class="mb-3">
                             <input v-model="user.password" v-show="!showPassword" @input="validatePassword" minlength="8" class="shadow-sm form-control" type="password" name="password" placeholder="Password" required>

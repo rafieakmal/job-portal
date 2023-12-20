@@ -6,7 +6,9 @@
                     <img class="img-fluid w-100" src="assets/img/illustrations/24488359_6960658.svg">
                 </div>
                 <div class="col text-start text-md-start">
-                    <h2 class="display-6 fw-semibold mb-4">Change your <span class="underline">password</span>?</h2>
+                    <vue-typed-js :typeSpeed="80" :showCursor="false" :autoInsertCss="true" :smartBackspace="true" :backSpeed="50" :strings="['Change your password?', 'Reset your password?', 'Add your password?']">
+                        <h2 class="typing display-6 fw-semibold mb-5 underline"></h2>
+                    </vue-typed-js>
                     <p class="text-muted">Enter the email associated with your account and we'll send you a reset link.</p>
                     <form @submit.prevent="requestResetPassword" data-bs-theme="light">
                         <div class="mb-3">
@@ -35,10 +37,14 @@
 </template>
 
 <script>
+    import { VueTypedJs } from 'vue-typed-js'
     export default {
         name: "forgot-password",
         metaInfo: {
             title: "MRI Job Portal - Forgot Password",
+        },
+        components: {
+            VueTypedJs
         },
         data() {
             return {

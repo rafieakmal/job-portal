@@ -6,11 +6,9 @@
                     <img class="img-fluid w-100" src="assets/img/illustrations/20824344_6343823.svg">
                 </div>
                 <div class="col text-start text-md-start">
-                    <h2 class="display-6 fw-semibold mb-5">
-                        <span class="underline pb-1">
-                            Login
-                        </span>
-                    </h2>
+                    <vue-typed-js :typeSpeed="50" :showCursor="false" :autoInsertCss="true" :contentType="'html'" :backSpeed="2" :strings="['<span>Login</span>']">
+                        <h2 class="typing display-6 fw-semibold mb-5 underline pb-1"></h2>
+                    </vue-typed-js>
                     <form @submit.prevent="loginForm">
                         <div class="mb-3">
                             <input v-model="email" class="shadow form-control" type="email" name="email" placeholder="Email" required>
@@ -88,7 +86,8 @@
 </style>
 
 <script>
-    import { VueRecaptcha } from 'vue-recaptcha';
+    import { VueRecaptcha } from 'vue-recaptcha'
+    // import { VueTypedJs } from 'vue-typed-js'
     import verifyUser from '../../verifyUser.js'
     export default {
         metaInfo: {
