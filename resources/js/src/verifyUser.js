@@ -1,6 +1,6 @@
 async function verifyUser(id) {
     try {
-        const user = await axios.post('api/candidate/validation', {
+        const user = await axios.post('/api/candidate/validation', {
             id
         })
 

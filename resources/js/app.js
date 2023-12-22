@@ -9,8 +9,6 @@ import App from './src/App.vue'
 import store from './store/index'
 import VueMeta from 'vue-meta'
 import Vue2Editor from "vue2-editor"
-import VueClipboard from 'vue-clipboard2'
-import VueSplit from 'vue-split-panel'
 import VueCookies from 'vue-cookies'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueSweetalert2 from 'vue-sweetalert2'
@@ -18,23 +16,29 @@ import * as Sentry from "@sentry/vue"
 import VueI18n from 'vue-i18n'
 import verifyUser from './src/verifyUser'
 import VModal from 'vue-js-modal'
-import vSelect from 'vue-select'
 import VueSanitize from "vue-sanitize"
 import { VueTypedJs } from 'vue-typed-js'
+import VueToast from 'vue-toast-notification'
 
+// Import external stylesheets
 import 'sweetalert2/dist/sweetalert2.min.css'
 import 'vue-js-modal/dist/styles.css'
-import 'vue-select/dist/vue-select.css'
 // import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import '/assets/bootstrap/css/bootstrap.min.css'
+import '/assets/fonts/fontawesome-all.min.css'
+import 'vue-toast-notification/dist/theme-bootstrap.css'
+
+// Import external scripts
+import '/assets/bootstrap/js/bootstrap.min.js'
+import '/assets/js/startup-modern.min.js'
+import '/assets/js/darkmode.min.js'
 
 Vue.component('vue-typed-js', VueTypedJs)
 Vue.use(VueMeta)
 Vue.use(VueRouter)
-Vue.component('v-select', vSelect)
+Vue.use(VueToast)
 Vue.use(VueAxios, axios)
-Vue.use(VueSplit)
-Vue.use(VueClipboard)
 Vue.use(Vue2Editor)
 Vue.use(VueI18n)
 Vue.use(VueSanitize)
@@ -107,7 +111,6 @@ router.beforeEach(async (to, from, next) => {
       let roles = user.candidate_role
       let isEmailVerified = user.email_verified_at != null ? true : false
       let isPhoneVerified = user.phone_verified_at != null ? true : false
-      let isPasswordSet = user.password_verified_at != null ? true : false
       if (to.matched.some(record => record.meta.isUser)) {
         if (roles.includes('user')) next()
         else if (roles === 'admin') {
@@ -141,7 +144,6 @@ router.beforeEach(async (to, from, next) => {
     let roles = user.candidate_role
     let isEmailVerified = user.email_verified_at != null ? true : false
     let isPhoneVerified = user.phone_verified_at != null ? true : false
-    let isPasswordSet = user.password_verified_at != null ? true : false
     if (!token) {
       next({
         path: '/login',

@@ -20,6 +20,7 @@ Route::controller(CandidateController::class)->group(function () {
     Route::POST('/candidate/verify-code', 'verifyCode');
     Route::POST('/candidate/resend-code', 'generateNewCode');
     Route::POST('/candidate/reset-password', 'reset');
+    Route::POST('/candidate/update-profile', 'updateProfile');
     Route::GET('/candidate/redirect/reset-password', 'redirectResetPassword')->name('password.reset');
     Route::POST('/candidate/reset-password-link', 'sendPasswordResetLink');
 });

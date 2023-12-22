@@ -3,7 +3,7 @@
         <div class="container-xl py-md-5">
             <div class="row">
                 <div class="col-md-5 text-center" id="img-heading">
-                    <img class="img-fluid w-100" src="assets/img/illustrations/20824344_6343823.svg">
+                    <img class="img-fluid w-100" alt="forgot password image" src="assets/img/illustrations/20824344_6343823.svg">
                 </div>
                 <div class="col text-start text-md-start">
                     <h2 class="display-6 fw-bold mb-5">Reset <span class="underline pb-1">Password</span></h2>
@@ -31,7 +31,7 @@
                             <p style="color: green;">{{ message }}</p>
                         </div>
                         <div v-if="!isVerified" >
-                            <vue-recaptcha ref="recaptcha" sitekey="6LfVTC4pAAAAAOBdUZZO-hNtoTaeQtlHYfjI7vZP" 
+                            <vue-recaptcha ref="recaptcha" sitekey="6LfVTC4pAAAAAOBdUZZO-hNtoTaeQtlHYfjI7vZP" :theme="theme"
                                 @verify="verifyMethod"
                                 @expired="expiredMethod"
                                 @render="renderMethod"
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-    import { VueRecaptcha } from 'vue-recaptcha';
+    import { VueRecaptcha } from 'vue-recaptcha'
     import verifyUser from '../../verifyUser.js'
     export default {
         name: "forgot-password",
@@ -74,6 +74,7 @@
                 message: null,
                 isVerified: false,
                 showPassword: false,
+                theme: 'light',
                 user: {
                     password: null,
                     password_confirmation: null,

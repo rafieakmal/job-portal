@@ -7,11 +7,12 @@ import ForgotPassword from '../src/pages/ForgotPasswordComponent.vue'
 import ForgotPasswordForm from '../src/components/signup/ForgotPasswordForm.vue'
 import Onboarding  from '../src/components/signup/Onboarding.vue'
 import VerifyPage from '../src/pages/VerifyPage.vue'
-import Profile from '../src/pages/ProfilePage.vue'
-import Account from '../src/pages/AccountPage.vue'
-import Settings from '../src/pages/SettingsPage.vue'
-// import Whatsapp from '../src/components/signup/Whatsapp.vue'
+import JobDetailPage from '../src/pages/DetailPage.vue'
+import Profile from '../src/components/profile/Profile.vue'
+import Account from '../src/components/profile/Account.vue'
+import Settings from '../src/components/profile/Settings.vue'
 import Whatsapp from '../src/pages/WhatsappPage.vue'
+import EditProfile from '../src/pages/EditProfilePage.vue'
 import Email from '../src/pages/EmailPage.vue'
 
 
@@ -23,6 +24,14 @@ const routes = [
     meta: {
       requiresAuth: true
     },
+  },
+  {
+    path: "/job-detail/:slug",
+    component: JobDetailPage,
+    name: 'job-detail',
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/contact',
@@ -100,28 +109,31 @@ const routes = [
     })
   },
   {
-    path: '/profile',
-    name: 'profile',
-    component: Profile,
+    path: "/user",
+    component: EditProfile,
+    name: 'profile-main',
     meta: {
       requiresAuth: true
     },
-  },
-  {
-    path: '/account-management',
-    name: 'account-management',
-    component: Account,
-    meta: {
-      requiresAuth: true
-    },
-  },
-  {
-    path: '/settings',
-    name: 'settings',
-    component: Settings,
-    meta: {
-      requiresAuth: true
-    },
+    children: [{
+        path: 'profile',
+        meta: {
+          requiresAuth: true
+        },
+        component: Profile,
+        name: 'profile-edit'
+      },
+      {
+        path: 'settings',
+        component: Settings,
+        name: 'profile-settings'
+      },
+      {
+        path: 'account-management',
+        component: Account,
+        name: 'profile-management'
+      },
+    ]
   },
   { path: '/:pathMatch(.*)*', 
     name: 'not-found', 

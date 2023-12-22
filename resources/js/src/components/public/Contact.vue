@@ -10,7 +10,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="col">
                     <div>
-                        <form class="p-3 p-xl-4" method="post" data-bs-theme="light">
+                        <form class="p-3 p-xl-4" method="post">
                             <div class="mb-3">
                                 <input class="shadow form-control" type="text" id="name-1" name="name" placeholder="Name">
                             </div>

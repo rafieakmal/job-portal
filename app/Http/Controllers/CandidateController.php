@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
 {
@@ -77,6 +78,64 @@ class CandidateController extends Controller
             return response()->json($responseBuilder);
         } else {
             return response()->json(['message' => 'User is not valid.'], 400);
+        }
+    }
+
+    public function updateProfile(Request $request) {
+        $request->validate([
+            'candidate_slug' => 'required|string',
+            'candidate_name' => 'string',
+            'candidate_username' => 'string',
+            'candidate_gender' => 'string',
+            'candidate_profile_picture' => 'image|mimes:jpg,jpeg,png',
+        ]);
+
+        $user = Candidate::where('candidate_slug', '=', $request->candidate_slug)->first();
+
+        if ($user) {
+            // validate if candidate_profile_picture is a jpg
+            if ($request->hasFile('candidate_profile_picture')) {
+                // delete old file
+                if ($user->candidate_profile_picture != null) {
+                    $old_file_path = str_replace('/storage/', '', $user->candidate_profile_picture);
+                    Storage::disk('public')->delete($old_file_path);
+                }
+
+                $file_name = $request->candidate_username . '_' . rand(1000, 9999) . '.webp';
+                // move to storage
+                $file_path = Storage::disk('public')->putFileAs('assets/img/user', $request->file('candidate_profile_picture'), $file_name);
+                if (!$file_path) {
+                    return response()->json(['message' => 'Failed to upload image.'], 400);
+                }
+            } else {
+                $file_path = $user->candidate_profile_picture;
+            }
+            
+            // validate if candidate_username is not empty and same
+            if ($request->candidate_username != null && $request->candidate_username != $user->candidate_username) {
+                $usernameExists = Candidate::where('candidate_username', '=', $request->candidate_username)->exists();
+                if ($usernameExists) {
+                    return response()->json(['message' => 'Username already exists.'], 400);
+                }
+            }
+
+
+
+            // update user
+            $user->candidate_name = $request->candidate_name;
+            $user->candidate_username = $request->candidate_username;
+            $user->candidate_gender = $request->candidate_gender;
+            $user->candidate_profile_picture = '/storage/' . $file_path;
+            $user->save();
+
+            $responseBuilder = [
+                'status' => 200,
+                'message' => 'User successfully updated.',
+                'data' => $user,
+            ];
+            return response()->json($responseBuilder);
+        } else {
+            return response()->json(['message' => 'User not found.'], 404);
         }
     }
 

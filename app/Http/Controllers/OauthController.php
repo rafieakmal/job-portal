@@ -46,6 +46,7 @@ class OauthController extends Controller
             $candidate->update([
                 "candidate_name" => $google_candidate->name,
                 "candidate_profile_picture" => $google_candidate->avatar,
+                "email_verified_at" => Date::now(),
                 "candidate_last_login" => Date::now(),
             ]);
             

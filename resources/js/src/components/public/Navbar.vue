@@ -15,9 +15,6 @@
                         <router-link class="nav-link" :to="{ name: 'contact' }">Contacts</router-link>
                     </li>
                 </ul>
-                <!-- <li class="nav-item dropdown no-arrow"> -->
-                
-                <!-- </li> -->
                 
                 <div v-if="isLoggedIn">
                     <li class="nav-item dropdown no-arrow">
@@ -25,17 +22,17 @@
                                 <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
                                     <b-skeleton v-if="loading" animation="throb" type="avatar"></b-skeleton>
                                     <span v-if="!loading" class="d-none d-lg-inline me-2 text-gray-600 small">{{ user.candidate_name }}</span>
-                                    <img v-if="!loading" class="border rounded-circle img-profile" :src="user.candidate_profile_picture" />
+                                    <img v-if="!loading" class="border rounded-circle img-profile" alt="Profile Image" :src="user.candidate_profile_picture" />
                                     
                                 </a>
                                 <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-                                    <a class="dropdown-item" href="/profile">
+                                    <a class="dropdown-item" href="/user/profile">
                                         <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Profile
                                     </a>
-                                    <a class="dropdown-item" href="/settings">
+                                    <a class="dropdown-item" href="/user/settings">
                                         <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i> Settings
                                     </a>
-                                    <a class="dropdown-item" href="/account-management">
+                                    <a class="dropdown-item" href="/user/account-management">
                                         <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i> Account Management
                                     </a>
                                     <div class="dropdown-divider"></div>
@@ -43,9 +40,6 @@
                                 </div>
                         </div>
                     </li>
-
-                    
-                    <!-- <a class="btn btn-danger shadow" role="button" @click="logout">Logout</a> -->
                 </div>
                 <div v-else>
                     <a class="btn btn-primary shadow" role="button" href="/sign-up">Sign up</a>
@@ -135,8 +129,7 @@
                 this.isLoggedIn = this.$cookies.get('user_token') != null    
 
                 if (this.id != '' && this.isLoggedIn) {
-                    let response = await verifyUser(this.id)
-                    this.user = response
+                    this.user = this.$store.getters.getUser
                     this.loading = false
                 }
             },

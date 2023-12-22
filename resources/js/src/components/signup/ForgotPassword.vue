@@ -3,14 +3,14 @@
         <div class="container-xl py-md-5">
             <div class="row d-flex align-items-center">
                 <div class="col-md-4 text-center" id="img-heading">
-                    <img class="img-fluid w-100" src="assets/img/illustrations/24488359_6960658.svg">
+                    <img class="img-fluid w-100" src="assets/img/illustrations/24488359_6960658.svg" alt="forgot password image">
                 </div>
                 <div class="col text-start text-md-start">
                     <vue-typed-js :typeSpeed="80" :showCursor="false" :autoInsertCss="true" :smartBackspace="true" :backSpeed="50" :strings="['Change your password?', 'Reset your password?', 'Add your password?']">
                         <h2 class="typing display-6 fw-semibold mb-5 underline"></h2>
                     </vue-typed-js>
                     <p class="text-muted">Enter the email associated with your account and we'll send you a reset link.</p>
-                    <form @submit.prevent="requestResetPassword" data-bs-theme="light">
+                    <form @submit.prevent="requestResetPassword">
                         <div class="mb-3">
                             <input class="shadow form-control" type="email" name="email" placeholder="Email" v-model="email" required>
                         </div>

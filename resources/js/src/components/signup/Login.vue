@@ -3,12 +3,10 @@
         <div class="container-xl py-md-5">
             <div class="row">
                 <div class="col-md-6 text-center" id="img-heading">
-                    <img class="img-fluid w-100" src="assets/img/illustrations/20824344_6343823.svg">
+                    <img class="img-fluid w-100" :src="mainImage" alt="login image">
                 </div>
                 <div class="col text-start text-md-start">
-                    <vue-typed-js :typeSpeed="50" :showCursor="false" :autoInsertCss="true" :contentType="'html'" :backSpeed="2" :strings="['<span>Login</span>']">
-                        <h2 class="typing display-6 fw-semibold mb-5 underline pb-1"></h2>
-                    </vue-typed-js>
+                    <h2 class="display-6 fw-semibold mb-5">Login</h2>
                     <form @submit.prevent="loginForm">
                         <div class="mb-3">
                             <input v-model="email" class="shadow form-control" type="email" name="email" placeholder="Email" required>
@@ -26,7 +24,7 @@
                             </div>
                         </div>
                         <div v-if="!isVerified" >
-                            <vue-recaptcha ref="recaptcha" sitekey="6LfVTC4pAAAAAOBdUZZO-hNtoTaeQtlHYfjI7vZP" 
+                            <vue-recaptcha ref="recaptcha" sitekey="6LfVTC4pAAAAAOBdUZZO-hNtoTaeQtlHYfjI7vZP" :theme="theme"
                                 @verify="verifyMethod"
                                 @expired="expiredMethod"
                                 @render="renderMethod"
@@ -39,11 +37,11 @@
                         </div>
                         <div class="text-center mb-5">
                             <div v-if="!isLoading">
-                                <button v-if="isVerified" class="btn btn-primary shadow" type="submit" style="width: 100%;">Log in</button>
+                                <button v-if="isVerified" class="btn btn-primary shadow my-button" type="submit">Log in</button>
                             </div>
 
                             <div v-else>
-                                <button class="btn btn-primary shadow" type="button" style="width: 100%;">
+                                <button class="btn btn-primary shadow my-button" type="button">
                                     <b-spinner small label="Spinning"></b-spinner> Loading...
                                 </button>
                             </div>
@@ -52,9 +50,9 @@
                             <div class="divider d-flex align-items-center my-4">
                                 <p class="text-center mx-3 mb-0">or</p>
                             </div>
-                            <button class="btn btn-light fw-lighter shadow" type="button" @click="loginGoogle" style="width: 100%;">
-                                <img src="assets/img/pngwing.com.png" style="margin-right: 10px;margin-top: 0px;margin-bottom: 2px;max-height: 100%;max-width: 3%;">
-                                Log in Using Google
+                            <button class="btn btn-light shadow my-button" type="button" @click="loginGoogle">
+                                <img alt="google login" src="assets/img/pngwing.com.png" class="img-google">
+                                <span class="fw-semibold">Log in Using Google</span>
                             </button>
                         </div>
                     </form>
@@ -74,6 +72,10 @@
         background: #eee;
     }
 
+    .my-button {
+        width: 100%;
+    }
+
     .hidden {
         display: none;
     }
@@ -83,11 +85,19 @@
             display: none;
         }
     }
+
+    .img-google {
+        margin-right: 10px;
+        margin-top: 0px;
+        margin-bottom: 2px;
+        max-height: 100%;
+        max-width: 3%;
+    }
 </style>
 
 <script>
     import { VueRecaptcha } from 'vue-recaptcha'
-    // import { VueTypedJs } from 'vue-typed-js'
+    import { getPreferredTheme, getStoredTheme, setStoredTheme, setTheme } from '../../../../../public/assets/js/darkmode.min.js'
     import verifyUser from '../../verifyUser.js'
     export default {
         metaInfo: {
@@ -98,13 +108,18 @@
             return {
                 email: '',
                 password: '',
+                mainImage: '',
                 error: null,
+                theme: 'light',
                 showPassword: false,
                 message: '',
                 isVerified: false,
                 isLoading: false,
                 newWindow: null
             }
+        },
+        created() {
+            this.mainImage = 'assets/img/illustrations/20824344_6343823.webp'
         },
         methods: {
             onEvent() {

@@ -3,13 +3,11 @@
         <div class="container-xl py-md-5">
             <div class="row">
                 <div class="col-md-7 text-center" id="img-heading">
-                    <img class="img-fluid w-100" src="assets/img/illustrations/7070629_3293466.svg">
+                    <img class="img-fluid w-100" :src="mainImage" alt="sign up image">
                 </div>
                 <div class="col text-start text-md-start">
-                    <vue-typed-js :typeSpeed="50" :showCursor="false" :autoInsertCss="true" :contentType="'html'" :backSpeed="2" :strings="['<span>Sign up</span>']">
-                        <h2 class="typing display-6 fw-semibold mb-5 underline pb-1"></h2>
-                    </vue-typed-js>
-                    <form @submit.prevent="registration" data-bs-theme="light">
+                    <h2 class="typing display-6 fw-semibold mb-5">Sign Up</h2>
+                    <form @submit.prevent="registration">
                         <div class="mb-3">
                             <input v-model="user.full_name" class="form-control" type="text" name="full_name" placeholder="Full Name">
                         </div>
@@ -40,7 +38,7 @@
                         </div>
                         <div class="text-center mb-5">
                             <div v-if="!isVerified" >
-                                <vue-recaptcha ref="recaptcha" sitekey="6LfVTC4pAAAAAOBdUZZO-hNtoTaeQtlHYfjI7vZP" 
+                                <vue-recaptcha ref="recaptcha" sitekey="6LfVTC4pAAAAAOBdUZZO-hNtoTaeQtlHYfjI7vZP" :theme="theme"
                                     @verify="verifyMethod"
                                     @expired="expiredMethod"
                                     @render="renderMethod"
@@ -54,9 +52,9 @@
                             <div class="divider d-flex align-items-center my-4">
                                 <p class="text-center mx-3 mb-0">or</p>
                             </div>
-                            <button class="btn btn-light fw-lighter shadow" @click="loginGoogle" type="button">
-                                <img src="assets/img/pngwing.com.png" class="google-btn-img">
-                                Log in Using Google
+                            <button class="btn btn-light shadow" @click="loginGoogle" type="button">
+                                <img src="assets/img/pngwing.com.png" alt="google login" class="google-btn-img">
+                                <span class="fw-semibold">Log in Using Google</span>
                             </button>
                         </div>
                     </form>
@@ -103,26 +101,6 @@ input[type='number'] {
     max-width: 3%;
 }
 
-.dropzone-custom-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.dropzone-custom-image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 30%;
-}
-
-.dropzone-custom-title {
-  margin-top: 0;
-  color: #128cd7;
-}
-
 .subtitle {
   color: #314b5f;
 }
@@ -141,7 +119,6 @@ input[type='number'] {
         data() {
             return {
                 showPassword: false,
-                blob: '',
                 user: {
                     email: '',
                     password: '',
@@ -149,26 +126,18 @@ input[type='number'] {
                     password_confirmation: '',
                     phone: '',
                 },
+                mainImage: '',
                 state: {
                     isLoading: true,
                 },
                 isVerified: false,
                 captureSrc:'',
                 errorMessage: '',
-                isCameraLoaded: false,
-                dismissSecs: 5,
-                dismissCountDown: 0,
-                phoneSecs: 5,
-                phoneCountDown: 0,
                 intervalId: null,
-                code: '',
-                phone: '',
                 validated: false,
                 generatedCode: '',
                 timer: null,
-                isTimer: false,
-                timeRemaining: 30,
-                displaySize: { width: 640, height: 480 },
+                theme: 'light',
                 dropzoneOptions: {
                     url: 'http://localhost:70/post',
                     thumbnailWidth: 150,
@@ -186,6 +155,9 @@ input[type='number'] {
             phoneState() {
                 return this.user.phone.length >= 10 && this.user.phone.length < 14 ? true : false
             },
+        },
+        created() {
+            this.mainImage = 'assets/img/illustrations/7070629_3293466.svg'
         },
         methods: {
             onEvent() {
